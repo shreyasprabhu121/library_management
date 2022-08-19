@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poc.springoracleCrud.model.BookModel;
 import com.poc.springoracleCrud.model.UserModel;
+import com.poc.springoracleCrud.pojo.BookBorrowResponse;
+import com.poc.springoracleCrud.pojo.BookReturnResponse;
 import com.poc.springoracleCrud.service.LibraryService;
 
 
@@ -39,12 +41,22 @@ public class LibraryController {
 	}
 	
 	@GetMapping("/updateborrowstatus/{id}")
-	public void updatestatus(@PathVariable("id") String bookid) {
-		libraryService.updateborrowstatus(bookid);
+	public String updatestatus(@PathVariable("id") String bookid) {
+		return libraryService.updateborrowstatus(bookid);
 	}
 	
 	@PostMapping("/adduser")
 	public String addUser(@RequestBody UserModel user) {
 		return libraryService.addUser(user);
+	}
+	
+	@GetMapping("/borrowbook/{bookid}/{userid}")
+	public BookBorrowResponse borrowBook(@PathVariable("bookid") String bookid, @PathVariable("userid") String userid) {
+		return libraryService.borrowBook(bookid, userid);
+	}
+	
+	@GetMapping("/returnbook/{bookid}")
+	public BookReturnResponse addUser(@PathVariable("bookid") String bookid) {
+		return libraryService.returnBook(bookid);
 	}
 }
